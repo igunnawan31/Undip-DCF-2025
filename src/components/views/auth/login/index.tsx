@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, AlertCircle } from 'lucide-react';
 import Router from 'next/router';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
@@ -7,37 +7,48 @@ import Link from 'next/link';
 const LoginView = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
+        
         const form = e.target as HTMLFormElement;
         const data = {
             email: form.email.value,
             password: form.password.value,
-        }
-        console.log(data);
+        };
+
         try {
-            const res = await signIn('credentials' , {
+            const res = await signIn('credentials', {
                 redirect: false,
-                email : data.email ,
-                password : data.password
+                email: data.email,
+                password: data.password,
+                callbackUrl: '/'
             });
 
-            console.log(res);
-            if(res?.error) {
-                console.log(res.error);
-                setIsLoading(false);
+            if (res?.error) {
+                switch (res.error) {
+                    case "User not found":
+                        setError("Account tidak ditemukan. Silahkan register terlebih dahulu.");
+                        break;
+                    case "Invalid password":
+                        setError("Password salah. Silahkan coba lagi.");
+                        break;
+                    default:
+                        setError("Login gagal. Silahkan coba lagi.");
+                }
             } else {
-                Router.push('/');
+                Router.push(res?.url || '/');
             }
         } catch (error) {
             console.error(error);
-            setIsLoading(false);
+            setError("Terjadi kesalahan pada sistem. Silahkan coba lagi nanti.");
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-white">
@@ -131,6 +142,17 @@ const LoginView = () => {
                             </button>
                         </div>
                     </div>
+
+                    {/* Error message display */}
+                    {error && (
+                        <div 
+                            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-2"
+                            role="alert"
+                        >
+                            <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm">{error}</span>
+                        </div>
+                    )}
 
                     <button 
                         type="submit" 

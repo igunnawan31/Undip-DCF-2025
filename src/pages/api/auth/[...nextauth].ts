@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
-        maxAge: 30 * 24 * 60 * 60, // 30 hari
+        maxAge:  24 * 60 * 60, 
     },
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
@@ -20,44 +20,50 @@ const authOptions: NextAuthOptions = {
             },
             async authorize(credentials) {
                 const { email, password } = credentials as { email: string; password: string };
-                console.log(email, password);
                 const user: any = await SignIn(email);
-                
-                if (!user) {
-                    throw new Error("User tidak ditemukan!");
-                }
-                
-                const passwordConfirm = await bcrypt.compare(password, user.password);
-                if (!passwordConfirm) {
-                    throw new Error("Password salah!");
-                }
 
-                return user;
+                if (user) {
+                    const passwordConfirm = await bcrypt.compare(password, user.password);
+                    if (passwordConfirm) {
+                        return user;
+                    } else {
+                        throw new Error("Invalid password");
+                    }
+                } else {
+                    throw new Error("User not found");
+                }
             },
         }),
     ],
     callbacks: {
-        async jwt({ token, user, account }: any) {
-            if (user) {
+        async jwt({ token, user , profile , account }: any) {
+            if (account?.provider === "credentials") {
                 token.id = user.id;
                 token.email = user.email;
                 token.role = user.role;
+                
+
             }
             return token;
         },
         async session({ session, token }: any) {
-            if (session.user) {
-                session.user.email = token.email ?? "";
-                session.user.id = token.id ?? "";
+            if ("email" in token) {
+                session.user.email = token.email;
             }
-            session.accessToken = jwt.sign(
-                token,
-                process.env.NEXTAUTH_SECRET || "default_secret",
-                {
-                    algorithm: "HS256",
-                    expiresIn: "30d",
-                }
-            );
+            if ("role" in token) {
+                session.user.role = token.role;
+            }
+
+            if ("id" in token) {
+                session.user.id = token.id;
+            }
+
+            const accessToken = jwt.sign(token , process.env.NEXTAUTH_SECRET || '' , {
+                algorithm : "HS256"
+            })
+
+            session.user.accessToken = accessToken
+
             return session;
         },
     },

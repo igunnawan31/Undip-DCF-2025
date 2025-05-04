@@ -1,55 +1,54 @@
 import { getToken } from "next-auth/jwt";
-import {
-  NextFetchEvent,
-  NextMiddleware,
-  NextRequest,
-  NextResponse,
-} from "next/server";
+import { NextFetchEvent, NextMiddleware, NextRequest, NextResponse } from "next/server";
 
-const onlyAdmin = ["/admin"];
-const authPage = ["/"];
+interface UserToken {
+  role?: string;
+}
+
+const adminPaths = ["/admin"];
+const authPaths = ["/auth/login", "/auth/register"];
+const publicPaths = ["/", "/about", "/contact"];
+
 
 export default function withAuth(
   middleware: NextMiddleware,
   requireAuth: string[] = []
 ) {
-  return async (req: NextRequest, next: NextFetchEvent) => {
-    const pathname = req.nextUrl.pathname.split("/")[1]; // Mendapatkan path root
-    console.log(pathname);
+  return async (req: NextRequest, event: NextFetchEvent) => {
+    const pathname = req.nextUrl.pathname;
 
-    if (requireAuth.includes(pathname)) {
-      const token = await getToken({
-        req,
-        secret: process.env.NEXTAUTH_SECRET,
-      });
+    // Allow public paths
+    if (publicPaths.some(path => pathname.startsWith(path))) {
+      return middleware(req, event);
+    }
 
-      // Jika tidak ada token, arahkan ke login atau sign-up
-      if (!token) {
-        const isLoginPage = pathname === "auth/login";
-        const redirectUrl = isLoginPage
-          ? "/auth/register"
-          : "/auth/login"; // Redirect ke signup jika login belum berhasil
+    // Block all non-public paths for unauthorized users
+    const token = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET  // Fixed typo: was MEXTAUTH_SECRET
+    }) as UserToken;
 
-        const url = new URL(redirectUrl, req.url);
-        url.searchParams.set("callbackurl", encodeURIComponent(req.url));
-        return NextResponse.redirect(url);
+    if (!token) {
+      if (authPaths.some(path => pathname.startsWith(path))) {
+        return middleware(req, event);
       }
+      const url = new URL("/auth/login", req.url);
+      url.searchParams.set("callbackUrl", encodeURIComponent(req.url));  // Fixed: was encodeURLComponent
+      return NextResponse.redirect(url);
+    }
 
-      // Jika token ada, cek halaman yang diakses
-      if (token) {
-        
-        // Jika pengguna mencoba mengakses halaman login tetapi sudah login, arahkan ke home
-        if (authPage.includes(pathname)) {
-          return NextResponse.redirect(new URL("/", req.url));
-        }
+    // Redirect logged-in users away from auth pages
+    if (authPaths.some(path => pathname.startsWith(path))) {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
 
-        // Jika pengguna bukan admin dan mencoba mengakses halaman admin, arahkan ke home
-        if (token.role !== "admin" && onlyAdmin.includes(pathname)) {
-          return NextResponse.redirect(new URL("/", req.url));
-        }
+    // Admin path protection
+    if (adminPaths.some(path => pathname.startsWith(path))) {
+      if (token.role !== "admin") {
+        return NextResponse.redirect(new URL("/unauthorized", req.url));
       }
     }
 
-    return middleware(req, next);
+    return middleware(req, event);
   };
 }

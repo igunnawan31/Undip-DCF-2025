@@ -1,0 +1,36 @@
+import { RetrieveData, RetrieveDataById, UpdateData } from "@/lib/supabase/services";
+import { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler (req : NextApiRequest , res : NextApiResponse){
+    if(req.method === "GET") {
+        const {id} = req.query
+        console.log(id)
+        if (id !== undefined) {
+            const data = await RetrieveDataById("pendaftar_seminar" , id as string )
+            if (data.length > 0) {
+                res.status(200).json({statusCode : 200 , message : "Retrieve Data Success" , data : data[0]});
+            } else {
+                res.status(400).json({statusCode : 400 , message : "Retrieve Data Failed"});
+            }
+        } else {
+            const data = await RetrieveData("pendaftar_seminar" , (status : boolean , data : any) => {
+                if(status) {
+                    res.status(200).json({statusCode : 200 , message : "Retrieve Data Success" , data : data});
+                } else {
+                    res.status(400).json({statusCode : 400 , message : "Retrieve Data Failed"});
+                }
+            })
+        }
+    } else if (req.method === "PUT") {
+        const {id} = req.query;
+        const data = req.body;
+        console.log(id)
+        await UpdateData("pendaftar_seminar" , id as string , data , (status : boolean , data : any) => {
+            if(status) {
+                res.status(200).json({statusCode : 200 , message : "Update Data Success"});
+            } else {
+                res.status(400).json({statusCode : 400 , message : "Update Data Failed"});
+            }
+        })
+    }
+}
