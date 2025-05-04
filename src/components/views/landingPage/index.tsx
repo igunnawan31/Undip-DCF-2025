@@ -23,7 +23,7 @@ const itemVariants = {
 
 const memories = [
   {
-    images : '/images/kenangan/Utama.JPG',
+    images : '/images/placeholder.jpg',
   } , 
   {
     images : '/images/kenangan/1.JPG',
@@ -99,7 +99,7 @@ const LandingView = () => {
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-[#008080]/30 z-10"></div>
             <Image 
-              src="/images/kenangan/Utama.JPG" 
+              src="/images/placeholder.jpg" 
               alt="Chemistry Background"
               fill
               className="object-cover object-center"
