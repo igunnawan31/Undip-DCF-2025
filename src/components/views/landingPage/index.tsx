@@ -23,19 +23,19 @@ const itemVariants = {
 
 const memories = [
   {
-    images : '/images/placeholder.jpg',
+    images : '/images/kenangan/Utama.png',
   } , 
   {
-    images : '/images/kenangan/1.JPG',
+    images : '/images/kenangan/1.png',
   } , 
   {
-    images : '/images/kenangan/2.JPG',
+    images : '/images/kenangan/2.png',
   } , 
   {
-    images : '/images/kenangan/3.JPG',
+    images : '/images/kenangan/3.png',
   } , 
   {
-    images : '/images/kenangan/4.JPG',
+    images : '/images/kenangan/4.png',
   }
   
 ]
@@ -99,7 +99,7 @@ const LandingView = () => {
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-[#008080]/30 z-10"></div>
             <Image 
-              src="/images/placeholder.jpg" 
+              src="/images/kenangan/Utama.png" 
               alt="Chemistry Background"
               fill
               className="object-cover object-center"
@@ -245,7 +245,7 @@ const LandingView = () => {
               <div className="h-48 relative bg-gradient-to-r from-teal-100 to-orange-50">
                 <div className="absolute inset-0">
                   <Image 
-                    src="/images/Olimpiade.jpg" 
+                    src="/images/Olimpiade.png" 
                     alt="Competition" 
                     fill
                     className="object-cover"
@@ -271,7 +271,7 @@ const LandingView = () => {
               <div className="h-48 relative bg-gradient-to-r from-orange-100 to-teal-50">
                 <div className="absolute inset-0">
                   <Image 
-                    src="/images/lkti.JPG" 
+                    src="/images/lkti.png" 
                     alt="Research" 
                     fill
                     className="object-cover"
