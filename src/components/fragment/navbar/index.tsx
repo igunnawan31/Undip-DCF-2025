@@ -12,6 +12,7 @@ const Navbar = () => {
   const [scrolledToTop, setScrolledToTop] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [dataSession, setDataSession] = useState<any>(null);
   const isHomePage = router.pathname === '/';
 
   const handleNavigation = (id: string) => {

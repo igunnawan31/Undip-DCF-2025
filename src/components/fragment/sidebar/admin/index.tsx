@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { BookText, GraduationCap, Presentation, LogOut, Users } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -35,6 +35,10 @@ const SidebarAdmin = () => {
     { name: "Seminar", icon: Presentation, href: "/admin/seminar" },
     { name: "User Management", icon: Users, href: "/admin/user" },
   ];
+
+  const handleLogout = () => {
+    router.push('/');
+  };
 
   return (
     <motion.div 
@@ -71,6 +75,19 @@ const SidebarAdmin = () => {
             </motion.div>
           </Link>
         ))}
+      </div>
+
+      {/* Logout Button */}
+      <div className="p-4 border-t border-gray-200">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={handleLogout}
+          className="flex items-center p-3 rounded-lg cursor-pointer w-full transition-colors text-gray-600 hover:bg-gray-100"
+        >
+          <LogOut className="w-5 h-5 mr-3 text-gray-500" />
+          <span className="font-medium">Keluar</span>
+        </motion.button>
       </div>
     </motion.div>
   );

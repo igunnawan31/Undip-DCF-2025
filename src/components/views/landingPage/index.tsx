@@ -728,113 +728,114 @@ const LandingView = () => {
           )}
 
           {/* LKTI Timeline */}
+          {/* LKTI Timeline */}
           {activeTab === 'lkti' && (
-          <motion.div 
-            initial="hidden"
-            animate="show"
-            variants={containerVariants}
-            className="mb-16"
-          >
-            <h3 className="text-2xl font-bold text-orange-600 mb-8 text-center flex items-center justify-center">
-              <FileText className="w-8 h-8 mr-3 text-teal-500" />
-              Timeline LKTI Nasional
-            </h3>
-            
-            <div className="relative">
-              {/* Timeline Line - Hide on mobile */}
-              <div className="hidden md:block absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-orange-400 to-teal-400 rounded-full opacity-20 -translate-y-1/2"></div>
+            <motion.div 
+              initial="hidden"
+              animate="show"
+              variants={containerVariants}
+              className="mb-16"
+            >
+              <h3 className="text-2xl font-bold text-orange-600 mb-8 text-center flex items-center justify-center">
+                <FileText className="w-8 h-8 mr-3 text-teal-500" />
+                Timeline LKTI Nasional
+              </h3>
               
-              {/* Timeline Items - Changed to vertical layout on mobile */}
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative z-10">
-                {[
-                  { 
-                    title: "Pendaftaran Gel. 1", 
-                    date: "5 Mei - 29 Juni 2025",
-                    icon: <CalendarDays className="w-6 h-6 text-white" />,
-                    mobilePosition: "md:col-start-1"
-                  },
-                  { 
-                    title: "Gelombang Diskon", 
-                    date: "23 Juni - 25 Juni 2025",
-                    icon: <Upload className="w-6 h-6 text-white" />,
-                    mobilePosition: "md:col-start-2"
-                  },
-                  { 
-                    title: "Pengumpulan Full paper Gelombang 1", 
-                    date: "5 Juli - 2 Agustus 2025",
-                    icon: <CalendarDays className="w-6 h-6 text-white" />,
-                    mobilePosition: "md:col-start-3"
-                  },
-                  { 
-                    title: "Pendaftaran dan Pengumpulan Abstrak Gelombang 2", 
-                    date: "5 Juli - 2 Agustus 2025",
-                    icon: <CheckCircle2 className="w-6 h-6 text-white" />,
-                    mobilePosition: "md:col-start-4"
-                  },
-                  { 
-                    title: "Pengumpulan Fullpaper Gelombang 2", 
-                    date: "8 Agustus - 31 Agustus 2025",
-                    icon: <CalendarDays className="w-6 h-6 text-white" />,
-                    mobilePosition: "md:col-start-5"
-                  },
-                  { 
-                    title: "Final dan Pengumuman Juara", 
-                    date: "28 September 2025", 
-                    icon: <Award className="w-6 h-6 text-white" />,
-                    mobilePosition: "md:col-start-3"
-                  }
-                ].map((item, index) => (
-                  <motion.div 
-                    key={index}
-                    variants={itemVariants}
-                    className={`flex flex-col items-center ${item.mobilePosition}`}
-                  >
-                    {/* Timeline Dot */}
-                    <div className="relative mb-4 w-full md:w-auto">
-                      {/* Connector line - Hide on mobile */}
-                      {index !== 0 && (
-                        <div className="hidden md:block absolute -left-16 top-1/2 w-16 h-1 bg-gradient-to-r from-orange-300/50 to-teal-300/50 -translate-y-1/2"></div>
-                      )}
-                      
-                      <motion.div 
-                        whileHover={{ scale: 1.1 }}
-                        className="w-14 h-14 flex items-center justify-center relative mx-auto md:mx-0"
-                      >
+              <div className="relative">
+                {/* Timeline Line - Hide on mobile */}
+                <div className="hidden md:block absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-orange-400 to-teal-400 rounded-full opacity-20 -translate-y-1/2"></div>
+                
+                {/* Timeline Items - Changed to vertical layout on mobile */}
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative z-10">
+                  {[
+                    { 
+                      title: "Pendaftaran Gel. 1", 
+                      date: "5 Mei - 29 Juni 2025",
+                      icon: <CalendarDays className="w-6 h-6 text-white" />,
+                      mobilePosition: "md:col-start-1"
+                    },
+                    { 
+                      title: "Gelombang Diskon", 
+                      date: "23 Juni - 25 Juni 2025",
+                      icon: <Upload className="w-6 h-6 text-white" />,
+                      mobilePosition: "md:col-start-2"
+                    },
+                    { 
+                      title: "Pengumpulan Full paper Gelombang 1", 
+                      date: "5 Juli - 2 Agustus 2025",
+                      icon: <CalendarDays className="w-6 h-6 text-white" />,
+                      mobilePosition: "md:col-start-3"
+                    },
+                    { 
+                      title: "Pendaftaran dan Pengumpulan Abstrak Gelombang 2", 
+                      date: "5 Juli - 2 Agustus 2025",
+                      icon: <CheckCircle2 className="w-6 h-6 text-white" />,
+                      mobilePosition: "md:col-start-4"
+                    },
+                    { 
+                      title: "Pengumpulan Fullpaper Gelombang 2", 
+                      date: "8 Agustus - 31 Agustus 2025",
+                      icon: <CalendarDays className="w-6 h-6 text-white" />,
+                      mobilePosition: "md:col-start-5"
+                    },
+                    { 
+                      title: "Final dan Pengumuman Juara", 
+                      date: "28 September 2025", 
+                      icon: <Award className="w-6 h-6 text-white" />,
+                      mobilePosition: "md:col-start-3"
+                    }
+                  ].map((item, index) => (
+                    <motion.div 
+                      key={index}
+                      variants={itemVariants}
+                      className={`flex flex-col items-center ${item.mobilePosition}`}
+                    >
+                      {/* Timeline Dot */}
+                      <div className="relative mb-4 w-full md:w-auto">
+                        {/* Connector line - Hide on mobile */}
+                        {index !== 0 && (
+                          <div className="hidden md:block absolute -left-16 top-1/2 w-16 h-1 bg-gradient-to-r from-orange-300/50 to-teal-300/50 -translate-y-1/2"></div>
+                        )}
+                        
                         <motion.div 
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ duration: 3, repeat: Infinity }}
-                          className="absolute inset-0 bg-orange-400/30 rounded-full"
-                        />
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-10 ${
+                          whileHover={{ scale: 1.1 }}
+                          className="w-14 h-14 flex items-center justify-center relative mx-auto md:mx-0"
+                        >
+                          <motion.div 
+                            animate={{ scale: [1, 1.05, 1] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                            className="absolute inset-0 bg-orange-400/30 rounded-full"
+                          />
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-10 ${
+                            index < 2 ? 'bg-orange-500' : 
+                            index < 4 ? 'bg-teal-400' : 
+                            'bg-gradient-to-br from-orange-500 to-teal-400'
+                          }`}>
+                            {item.icon}
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Timeline Card - Added min-height for consistent height */}
+                      <motion.div 
+                        whileHover={{ y: -5 }}
+                        className="w-full md:w-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 mx-4 md:mx-0 min-h-[180px] flex flex-col"
+                      >
+                        <div className={`h-2 ${
                           index < 2 ? 'bg-orange-500' : 
                           index < 4 ? 'bg-teal-400' : 
-                          'bg-gradient-to-br from-orange-500 to-teal-400'
-                        }`}>
-                          {item.icon}
+                          'bg-gradient-to-r from-orange-500 to-teal-400'
+                        }`}></div>
+                        <div className="p-5 text-center flex-grow flex flex-col justify-center">
+                          <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
+                          <div className="text-sm text-gray-500 font-medium">{item.date}</div>
                         </div>
                       </motion.div>
-                    </div>
-
-                    {/* Timeline Card */}
-                    <motion.div 
-                      whileHover={{ y: -5 }}
-                      className="w-full md:w-auto bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 mx-4 md:mx-0"
-                    >
-                      <div className={`h-2 ${
-                        index < 2 ? 'bg-orange-500' : 
-                        index < 4 ? 'bg-teal-400' : 
-                        'bg-gradient-to-r from-orange-500 to-teal-400'
-                      }`}></div>
-                      <div className="p-5 text-center">
-                        <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
-                        <div className="text-sm text-gray-500 font-medium">{item.date}</div>
-                      </div>
                     </motion.div>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
           )}
 
           {/* Registration Fee Section */}

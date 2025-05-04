@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import { 
-  Home, 
-  LayoutDashboard, 
   Users, 
   User, 
   LogOut, 
@@ -13,11 +11,12 @@ import {
   ChevronDown,
   ChevronUp,
   FileText,
-  Upload
+  Upload,
+  Shield
 } from "lucide-react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -27,14 +26,19 @@ const DashboardSidebar = () => {
   const [expanded, setExpanded] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const [lktiOpen, setLktiOpen] = useState(false);
+  const [dataSession, setDataSession] = useState<any>(null);
 
-  // Jika tidak ada session, redirect ke login
+  useEffect(() => {
+    if (session) {
+      setDataSession(session.user);
+    }
+  }, [session]);
+
   if (status === "unauthenticated") {
     router.push('/auth/login');
     return null;
   }
 
-  // Jika masih loading, tampilkan loading state
   if (status === "loading") {
     return (
       <div className="h-screen w-20 bg-white flex items-center justify-center">
@@ -43,15 +47,13 @@ const DashboardSidebar = () => {
     );
   }
 
-  // Pastikan session ada sebelum melanjutkan
   if (!session?.user) {
     return null;
   }
 
   const profileData = session.user;
 
-  const menuItems = [
-    { name: "Beranda", icon: Home, href: "/" },
+  const baseMenuItems = [
     { name: "Olimpiade", icon: Medal, href: "/dashboard/olimpiade" },
     { 
       name: "LKTI", 
@@ -65,6 +67,14 @@ const DashboardSidebar = () => {
     { name: "Seminar", icon: Users, href: "/dashboard/seminar" },
     { name: "History", icon: History, href: "/dashboard/history" },
   ];
+
+  // Add Admin menu if user role is admin
+  const menuItems = dataSession?.role === "admin" 
+    ? [
+        ...baseMenuItems,
+        { name: "Admin", icon: Shield, href: "/admin" }
+      ]
+    : baseMenuItems;
 
   const getActiveItem = () => {
     const currentPath = router.pathname;
@@ -88,6 +98,14 @@ const DashboardSidebar = () => {
     setLktiOpen(!lktiOpen);
   };
 
+  const handleLktiClick = () => {
+    if (!expanded) {
+      router.push('/dashboard/lkti');
+    } else {
+      toggleLktiMenu();
+    }
+  };
+
   return (
     <motion.div 
       initial={{ x: -20, opacity: 0 }}
@@ -101,12 +119,13 @@ const DashboardSidebar = () => {
     >
       {/* DCF Logo Header */}
       <div className="p-4 flex justify-between items-center bg-white border-b border-gray-100">
-        {expanded ? (
+        <Link href="/" passHref>
           <motion.div 
-            className="flex items-center"
+            className="flex items-center cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
+            whileHover={{ scale: 1.02 }}
           >
             <div className="relative w-10 h-10">
               <Image 
@@ -117,24 +136,14 @@ const DashboardSidebar = () => {
                 className="object-contain"
               />
             </div>
-            <span className="ml-3 text-xl font-bold text-[#008080]">
-              DCF UNDIP
-            </span>
+            {expanded && (
+              <span className="ml-3 text-xl font-bold text-[#008080]">
+                DCF UNDIP
+              </span>
+            )}
           </motion.div>
-        ) : (
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            className="relative w-10 h-10 mx-auto"
-          >
-            <Image 
-              src="/images/LogoMaskot.png" 
-              alt="DCF Logo"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
-          </motion.div>
-        )}
+        </Link>
+
         <button 
           onClick={() => setExpanded(!expanded)}
           className="p-1.5 rounded-lg hover:bg-gray-100 transition-all"
@@ -190,6 +199,11 @@ const DashboardSidebar = () => {
           >
             <h3 className="text-gray-900 font-semibold text-lg mb-1">{profileData.name}</h3>
             <p className="text-gray-500 text-sm">{profileData.email}</p>
+            {dataSession?.role === "admin" && (
+              <span className="inline-block mt-1 px-2 py-0.5 text-xs bg-[#008080] text-white rounded-full">
+                Admin
+              </span>
+            )}
           </motion.div>
         )}
       </div>
@@ -204,14 +218,14 @@ const DashboardSidebar = () => {
             return (
               <div key={item.name}>
                 {isLktiItem ? (
-                  <>
+                  <div>
                     <motion.div
                       whileHover={{ 
                         scale: 1.02,
                         backgroundColor: "rgba(0, 179, 179, 0.05)"
                       }}
                       whileTap={{ scale: 0.98 }}
-                      onClick={toggleLktiMenu}
+                      onClick={handleLktiClick}
                       className={`flex items-center p-3 rounded-lg cursor-pointer transition-all duration-200 ${
                         isActive || (item.submenu && item.submenu.some(sub => router.pathname.startsWith(sub.href)))
                           ? "bg-[#008080]/10 text-[#008080] border-l-4 border-[#008080]" 
@@ -274,7 +288,7 @@ const DashboardSidebar = () => {
                         })}
                       </motion.div>
                     )}
-                  </>
+                  </div>
                 ) : (
                   <Link href={item.href} passHref>
                     <motion.div
