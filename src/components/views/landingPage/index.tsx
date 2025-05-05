@@ -44,34 +44,34 @@ const testimonials = [
   {
     image : '/images/Foto Aida.jpg',
     name : "Aida" , 
-    role : "Ketua pelaksana DCF 2023" , 
+    role : "Ketua Tim Juara 1 LKTI" , 
     apaKataMereka : "Ikut lomba DCF yang diadakan himpunan mahasiswa kimia Undip pada tahun 2024 jadi pengalaman seru sekalii untuk aku.  Nggak Cuma nulis karya tulis dan lomba, tapi aku juga dapat banyak pengetahuan baru dari juri dan sharing langsung bareng teman-teman finalis. Senang bisa belajar hal-hal baru, nambah wawasan, dan ketemu orang-orang hebat. Terimakasih banyak buat panitia yang sudah mengadakan acara sekeren ini. Semoga tahun depan bisa ikut lagi, dan acaranya semakin seru dan inspiratif",
   } , 
   {
     image : '/images/Foto Darren.jpg',
     name : "Darren" , 
-    role : "Ketua pelaksana DCF 2023" , 
+    role : "Juara 1 Olimpiade" , 
     apaKataMereka : "Ikut lomba Kimia DCF UNDIP tuh seru banget! Acaranya rame, panitianya juga ramah, dan yang paling bikin deg-degan tuh soalnya—bener-bener bikin mikir keras. Tapi justru itu yang bikin nagih, karena kita jadi bisa ngetes seberapa jauh pemahaman kita tentang kimia.Buat kalian yang suka tantangan dan pengen ngerasain serunya adu ilmu kimia bareng temen-temen dari berbagai daerah, cobain deh ikut lomba ini. Jangan takut soal susah, yang penting nikmatin prosesnya dan ambil pelajaran sebanyak mungkin. Gas terus belajar, siapa tahu bisa juara juga!"
 
   } , 
   {
     image : '/images/Foto Mas Arifin.jpg',
     name : "Arifin" , 
-    role : "Ketua pelaksana DCF 2023" , 
+    role : "Ketua Pelaksana DCF 2024" , 
     apaKataMereka : "Halo Calon Saintis Hebat!Setiap keberhasilan besar selalu dimulai dari sebuah keputusan kecil, berani mencoba. Inilah saatnya kamu melangkah menuju masa depan bersama Diponegoro Chemistry Fair (DCF) 2025! Sebuah acara kebanggaan dari Himpunan Mahasiswa Kimia (HMK) Universitas Diponegoro. Ajang yang bukan hanya tentang ilmu, tapi juga tentang semangat, impian, dan keberanian untuk melangkah lebih jauh.Apa saja yang menantimu di DCF 2025? ✨Olimpiade Kimia ✨Lomba Karya Tulis Ilmiah (LKTI) ✨Seminar NasionalSeluruh kegiatan ini terbuka bagi siswa SMA/SMK/sederajat dari seluruh penjuru negeri. Rangkaian kegiatan ini menjadi wadah aktualisasi diri dan pengembangan potensi generasi muda yang siap berpikir kreatif dan inovatif dalam menjawab tantangan zaman. Kini waktunya kita bergerak, menciptakan perubahan, dan membuktikan bahwa ilmu kimia bisa menjadi jembatan menuju dunia yang lebih baik."
 
   } , 
   {
     image : '/images/Foto Mba Redin.jpg',
     name : "Redin" , 
-    role : "Ketua pelaksana DCF 2023" , 
+    role : "Ketua Departemen Pendidikan 2024" , 
     apaKataMereka : "Salam Saintis Muda! Melihat antusiasme para peserta dari berbagai daerah di Indonesia untuk ajang lomba Diponegoro Chemistry Fair di tahun lalu. Diponegoro Chemistry Fair diadakan kembali di tahun ini, bukan sekadar ajang lomba, tapi juga ruang bertumbuh bagi generasi muda yang mencintai ilmu kimia. Melalui Kompetisi Kimia, Lomba Karya Tulis Ilmiah, dan Seminar Nasional yang menjadi rangkaian di dalam DCF, kami ingin menyalakan semangat eksplorasi dan inovasi di bidang sains untuk teman - teman siswa SMA/SMK/Sederajat. Kami tunggu partisipasimu di DCF 2025. Tunjukan ide dan inovasimu dalam bidang kimia."
 
   } , 
   {
     image : '/images/Foto Yara.jpg',
     name : "Yara" , 
-    role : "Ketua pelaksana DCF 2023" , 
+    role : "Ketua Himpunan Mahasiswa Kimia 2025" , 
     apaKataMereka : "'Genggam bara api sampai jadi arang' itulah semangat yang tercermin dalam setiap langkah peserta Diponegoro Chemistry Fair. Dalam ajang ini, kamu akan diajak untuk berani mengambil tantangan, menghadapi persaingan, dan terus belajar tanpa kenal lelah. Melalui lomba LKTI, kompetisi, dan seminar nasional, DCF menjadi ruang aktualisasi diri sekaligus tempat menimba ilmu dari berbagai sudut pandang. Kesan yang paling membekas adalah suasana kompetitif yang sehat dan penuh semangat, diiringi kebersamaan yang hangat antar peserta dari segala penjuru Indonesia. Harapannya, DCF terus menjadi tempat yang dapat mendorong mahasiswa untuk berpikir kritis, berinovasi, dan tentu saja, terus menggenggam bara semangat hingga suatu saat menjadi arang keberhasilan yang nyata. DCF bukan sekadar ajang perlombaan, melainkan proses menempa diri tempat di mana semangat pantang menyerah diuji, dan kerja keras berbuah prestasi. Untuk itu, yuk pantengin terus segala info dari DCF dan jangan lupa daftarkan diri kamu juga yaa!"
 
   } 
@@ -530,15 +530,15 @@ const LandingView = () => {
               <div className="flex items-center mb-6">
                 <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-teal-100">
                   <Image 
-                    src={testimonials[0].image}
-                    alt={testimonials[0].name}
+                    src={testimonials[selectedTestimonial].image}
+                    alt={testimonials[selectedTestimonial].name}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-800">{testimonials[0].name}</h3>
-                  <p className="text-teal-600">{testimonials[0].role}</p>
+                  <h3 className="text-xl font-bold text-gray-800">{testimonials[selectedTestimonial].name}</h3>
+                  <p className="text-teal-600">{testimonials[selectedTestimonial].role}</p>
                 </div>
               </div>
               
@@ -553,14 +553,32 @@ const LandingView = () => {
               
               {/* Full Testimonial Text */}
               <div className="prose prose-lg text-gray-600 mb-6">
-                <p>{testimonials[0].apaKataMereka}</p>
+                <p>{testimonials[selectedTestimonial].apaKataMereka}</p>
               </div>
               
-              {/* Decorative Elements */}
-              <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
-                <div className="w-8 h-1 bg-gradient-to-r from-teal-400 to-orange-400 rounded-full"></div>
-                <p className="text-sm text-gray-400">DCF Testimonial</p>
-                <div className="w-8 h-1 bg-gradient-to-r from-orange-400 to-teal-400 rounded-full"></div>
+              {/* Navigation Arrows */}
+              <div className="flex justify-between mt-8 pt-6 border-t border-gray-100">
+                <button 
+                  onClick={() => setSelectedTestimonial(prev => (prev > 0 ? prev - 1 : testimonials.length - 1))}
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                
+                <div className="text-sm text-gray-400">
+                  {selectedTestimonial + 1} / {testimonials.length}
+                </div>
+                
+                <button 
+                  onClick={() => setSelectedTestimonial(prev => (prev < testimonials.length - 1 ? prev + 1 : 0))}
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </motion.div>
@@ -728,7 +746,6 @@ const LandingView = () => {
           )}
 
           {/* LKTI Timeline */}
-          {/* LKTI Timeline */}
           {activeTab === 'lkti' && (
             <motion.div 
               initial="hidden"
@@ -755,34 +772,28 @@ const LandingView = () => {
                       mobilePosition: "md:col-start-1"
                     },
                     { 
-                      title: "Gelombang Diskon", 
-                      date: "23 Juni - 25 Juni 2025",
-                      icon: <Upload className="w-6 h-6 text-white" />,
-                      mobilePosition: "md:col-start-2"
-                    },
-                    { 
                       title: "Pengumpulan Full paper Gelombang 1", 
                       date: "5 Juli - 2 Agustus 2025",
                       icon: <CalendarDays className="w-6 h-6 text-white" />,
-                      mobilePosition: "md:col-start-3"
+                      mobilePosition: "md:col-start-2"
                     },
                     { 
                       title: "Pendaftaran dan Pengumpulan Abstrak Gelombang 2", 
                       date: "5 Juli - 2 Agustus 2025",
                       icon: <CheckCircle2 className="w-6 h-6 text-white" />,
-                      mobilePosition: "md:col-start-4"
+                      mobilePosition: "md:col-start-3"
                     },
                     { 
                       title: "Pengumpulan Fullpaper Gelombang 2", 
                       date: "8 Agustus - 31 Agustus 2025",
                       icon: <CalendarDays className="w-6 h-6 text-white" />,
-                      mobilePosition: "md:col-start-5"
+                      mobilePosition: "md:col-start-4"
                     },
                     { 
                       title: "Final dan Pengumuman Juara", 
                       date: "28 September 2025", 
                       icon: <Award className="w-6 h-6 text-white" />,
-                      mobilePosition: "md:col-start-3"
+                      mobilePosition: "md:col-start-5"
                     }
                   ].map((item, index) => (
                     <motion.div 
@@ -892,7 +903,7 @@ const LandingView = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-3 bg-teal-50 rounded-lg">
                       <span className="font-medium text-gray-700">Gelombang 1</span>
-                      <span className="font-bold text-teal-700">Rp 95.000</span>
+                      <span className="font-bold text-teal-700">Rp 100.000</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
                       <span className="font-medium text-gray-700">Gelombang 2</span>
@@ -1165,7 +1176,7 @@ const LandingView = () => {
                   step: 5,
                   title: "Pendaftaran Lomba",
                   description: [
-                    "Peserta memilih jenis lomba (Olimpiade, LKTI, Poster, atau Seminar)",
+                    "Peserta memilih jenis lomba (Olimpiade, LKTI, atau Seminar)",
                     "Mengisi data yang diperlukan dan mengunggah dokumen persyaratan"
                   ],
                   icon: <ClipboardCheck className="w-6 h-6 text-white" />

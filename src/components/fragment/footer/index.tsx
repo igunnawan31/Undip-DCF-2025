@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { Link } from 'lucide-react';
 
 const Footer = () => {
   const router = useRouter();
@@ -30,16 +31,17 @@ const Footer = () => {
     { name: 'WhatsApp LKTI', link: 'https://wa.me/628989351872', text: '+628989351872 (Levina)' }
   ];
 
-  const events = [
-    { name: 'Chemistry Competition', id: 'about' },
-    { name: 'LKTI', id: 'about' },
-    { name: 'Seminar Nasional', id: 'about' }
+  const navItems = [
+    { name: 'Beranda', id: 'home' },
+    { name: 'Tentang', id: 'about' },
+    { name: 'Jadwal', id: 'timeline' },
+    { name: 'Hadiah', id: 'hadiah' },
+    { name: 'Cara Daftar', id: 'registration' }
   ];
 
   // Effect to handle scrolling when returning from another page
   useEffect(() => {
     if (!isHomePage && router.asPath.includes('#')) {
-      // If we're not on the home page but have a hash, wait for navigation to complete
       const timer = setTimeout(() => {
         const id = router.asPath.split('#')[1];
         const element = document.getElementById(id);
@@ -53,7 +55,7 @@ const Footer = () => {
 
   // Helper function to scroll to element with offset
   const scrollToElement = (element: HTMLElement) => {
-    const offset = 100; // Adjust this value as needed
+    const offset = 100;
     const bodyRect = document.body.getBoundingClientRect().top;
     const elementRect = element.getBoundingClientRect().top;
     const elementPosition = elementRect - bodyRect;
@@ -68,13 +70,11 @@ const Footer = () => {
   // Main function to handle scroll/navigation
   const handleScroll = (id: string) => {
     if (isHomePage) {
-      // We're on the home page, scroll directly
       const element = document.getElementById(id);
       if (element) {
         scrollToElement(element);
       }
     } else {
-      // We're on another page, navigate to home with hash
       router.push(`/#${id}`);
     }
   };
@@ -126,19 +126,28 @@ const Footer = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8 text-left">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Acara</h3>
+            <h3 className="text-lg font-semibold mb-4">Navigasi</h3>
             <ul className="space-y-2">
-              {events.map((event) => (
-                <li key={event.id}>
+              {navItems.map((item) => (
+                <li key={item.id}>
                   <button
-                    onClick={() => handleScroll(event.id)}
+                    onClick={() => handleScroll(item.id)}
                     className="relative text-white/80 hover:text-[#fdbe85] transition duration-300 group text-left"
                   >
-                    {event.name}
+                    {item.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#fdbe85] transition-all duration-300 group-hover:w-full"></span>
                   </button>
                 </li>
               ))}
+              <li>
+                <Link 
+                  href="/contact" 
+                  className="relative text-white/80 hover:text-[#fdbe85] transition duration-300 group text-left"
+                >
+                  Contact
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#fdbe85] transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
