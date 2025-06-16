@@ -43,7 +43,7 @@ export default async function handler (req : NextApiRequest , res : NextApiRespo
         const data = req.body;
         await UpdateData("pendaftar_lkti" , id as string , data , (status : boolean , data : any) => {
             if(status) {
-                res.status(200).json({statusCode : 200 , message : "Update Data Success"});
+                res.status(200).json({statusCode : 200 , message : "Update Data Successs"});
             } else {
                 res.status(400).json({statusCode : 400 , message : "Update Data Failed"});
             }
